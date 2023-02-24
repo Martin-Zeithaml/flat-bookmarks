@@ -35,6 +35,7 @@ a {
 
 a.linkH1:hover {
   color: cyan;
+  text-decoration: underline;
 }
 
 .linkH2 {
@@ -43,4 +44,5 @@ a.linkH1:hover {
 
 a.linkH2:hover {
   color: greenyellow;
+  text-decoration: underline;
 }
