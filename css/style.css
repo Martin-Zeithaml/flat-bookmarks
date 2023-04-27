@@ -1,12 +1,21 @@
 * {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'IBM 3270', Courier New, Courier, monospace;
   font-size: x-large;
   color: antiquewhite;
   box-sizing: border-box;
 }
 
 body {
-  background-color:black;
+    background-color: black;
+    background-image: radial-gradient(
+      rgba(19, 2, 34, 0.75), black 120%
+    );
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    padding: 2rem;
+    color: 	#7CFC00;
+    text-shadow: 0 0 3px #0bda76;
 }
 
 ul {
