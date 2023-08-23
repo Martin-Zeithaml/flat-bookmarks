@@ -6,6 +6,31 @@
     <meta charset="utf-8">
     <head>
         <link rel="stylesheet" href="css/style.css">
+        <script>
+            function addLi(id, link){
+                if (link === '' || link === null || link === undefined){
+                    link = id;
+                }
+                const LINK_LIST = ['issues', 'issues/Martin-Zeithaml', 'pulls', 'pulls/Martin-Zeithaml'];
+                const TXT_LIST = ['Issues', 'mz', 'Pulls', 'mz'];
+                const SEPARATORS = [' > ', '&nbsp|&nbsp', ' > ', ''];
+                var ul = document.getElementById(id);
+                var li = document.createElement('li');
+                for (i = 0; i < LINK_LIST.length; i ++){
+                    let a = document.createElement('a');
+                    if (link.startsWith('http')) {
+                        a.href = link + '/' + LINK_LIST[i];
+                    } else {
+                        a.href = 'https://github.com/zowe/' + link + '/' + LINK_LIST[i];
+                    }
+                    a.text = TXT_LIST[i];
+                    a.className = 'linkH2';
+                    li.appendChild(a);
+                    li.innerHTML += SEPARATORS[i];
+                }
+                ul.appendChild(li);
+            }
+        </script>
     </head>
     <body>
         <h1 style="text-align: center">..::|[ ZOWE ]|::..</h1>
@@ -50,40 +75,47 @@
                             <li><a class="linkH2" href="https://github.com/zowe/community/tree/master/Project%20Management/PI%20Planning">PI Planning</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <li><a class="linkH1" href="https://github.com/zowe/docs-site">Docs site</a></li>
+                        <ul id="docs_site">
+                            <script>addLi('docs_site', 'docs-site')</script>
+                        </ul>
+                    </li>
                     <li><a class="linkH1" href="https://github.com/zowe/zlux">Zlux</a>
-                        <ul>
-                            <li><a class="linkH2" href="https://github.com/zowe/zlux/issues">Issues</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/zowe/zlux/pulls">Pulls</a></li>
+                        <ul id="zlux">
+                            <script>addLi('zlux');</script>
                         </ul>
                     </li>
                     <li><a class="linkH1" href="https://github.com/zowe/zowe-install-packaging">Zowe-Install-Packaging</a>
-                        <ul>
-                            <li><a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/issues">Issues</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/pulls">Pulls</a></li>
+                        <ul id="zowe-install-packaging">
+                            <script>addLi('zowe-install-packaging');</script>
                             <li><a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v2.x/staging/example-zowe.yaml">Example-zowe.yaml</a></li>
                             <li><a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v2.x/staging/bin/utils">Utils</a></li>
                         </ul>
                     <li><a class="linkH1" href="https://github.com/zowe/zowe-common-c">Zowe-Common-C</a>
-                        <ul>
-                            <li><a class="linkH2" href="https://github.com/zowe/zowe-common-c/issues">Issues</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/zowe/zowe-common-c/pulls">Pulls</a></li>
+                        <ul id="zowe-common-c">
+                            <script>addLi('zowe-common-c');</script>
                         </ul>
                     <li><a class="linkH1" href="https://github.com/zowe/launcher">Launcher</a>
-                        <ul>
-                            <li><a class="linkH2" href="https://github.com/zowe/launcher/issues">Issues</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/zowe/launcher/pulls">Pulls</a></li>
+                        <ul id="launcher">
+                            <script>addLi('launcher');</script>
                         </ul>
                     <li><a class="linkH1" href="https://github.com/zowe/zss">ZSS</a></li>
-                        <ul>
-                            <li><a class="linkH2" href="https://github.com/zowe/zss/issues">Issues</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/zowe/zss/pulls">Pulls</a></li>
+                        <ul id="zss">
+                            <script>addLi('zss');</script>
                         </ul>
                     <li><a class="linkH1" href="https://github.com/zowe/zlux-editor">Zlux-Editor</a></li>
-                        <ul>
-                            <li><a class="linkH2" href="https://github.com/zowe/zlux-editor/issues">Issues</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/zowe/zlux-editor/pulls">Pulls</a></li>
+                        <ul id="zlux_editor">
+                            <script>addLi('zlux_editor', 'zlux_editor');</script>
                         </ul>
                     <li><a class="linkH1" href="https://github.com/zowe/zlux-file-explorer">Zlux-File-Explorer</a></li>
-                        <ul>
+                        <ul id="zlux-file-explorer">
+                            <script>addLi('zlux-file-explorer');</script>
                             <li><a class="linkH2" href="https://github.com/zowe/zlux-file-explorer/issues">Issues</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/zowe/zlux-file-explorer/pulls">Pulls</a></li>
                         </ul>                    
                     <li><a class="linkH1" href="https://github.com/zowe/api-layer">API Layer</a></li>
-                    <ul>
-                        <li><a class="linkH2" href="https://github.com/zowe/api-layer/issues">Issues</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/zowe/api-layer/pulls">Pulls</a></li>
+                    <ul id="api-layer">
+                        <script>addLi('api-layer');</script>
                         <li><a class="linkH2" href="https://github.com/zowe/api-layer/tree/v2.x.x/certificate-analyser">Certificate Analyser</a></li>
                     </ul>
                 </ul>
@@ -91,8 +123,8 @@
             <div class="column">
                 <ul>
                     <li><a class="linkH1" href="https://github.com/zowe/explorer-ip">Explorer-Ip</a></li>
-                        <ul>
-                            <li><a class="linkH2" href="https://github.com/zowe/explorer-ip/issues">Issues</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/zowe/explorer-ip/pulls">Pulls</a></li>
+                        <ul id="explorer-ip">
+                            <script>addLi('explorer-ip');</script>
                         </ul>
                     <li><a class="linkH1" href="https://github.com/zowe/tn3270-ng2">Tn3270-Ng2</a></li>
                         <ul>
