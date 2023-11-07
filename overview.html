@@ -12,7 +12,7 @@
                     link = id;
                 }
                 const LINK_LIST = ['issues', 'issues/Martin-Zeithaml', 'pulls', 'pulls/Martin-Zeithaml'];
-                const TXT_LIST = ['Issues', 'mz', 'Pulls', 'mz'];
+                const TXT_LIST = ['Issues', 'MZ', 'Pulls', 'MZ'];
                 const SEPARATORS = [' > ', '&nbsp|&nbsp', ' > ', ''];
                 var ul = document.getElementById(id);
                 var li = document.createElement('li');
@@ -52,6 +52,7 @@
                     <li><a class="linkH1" href="https://github.com/Martin-Zeithaml">Martin-Zeithaml</a></li>
                     <ul>
                         <li><a class="linkH2" href="https://github.com/Martin-Zeithaml/TSTerm">TSTerm</a></li>
+                        <li><a class="linkH2" href="https://github.com/Martin-Zeithaml/quickJS-tests">Quick JS Tests</a></li>
                     </ul>
                 </ul>
                 <ul>
@@ -81,17 +82,25 @@
                             <script>addLi('docs_site', 'docs-site')</script>
                         </ul>
                     </li>
+                    <li><a class="linkH1" href="https://github.com/zowe/zowe-install-packaging">Zowe-Install-Packaging</a>
+                        <ul id="zowe-install-packaging">
+                            <script>addLi('zowe-install-packaging');</script>
+                            <li>
+                                <a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/tree/v2.x/staging/schemas">Schemas</a>&nbsp|
+                                <a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v2.x/staging/example-zowe.yaml">Example-zowe.yaml</a>
+                            </li>
+                            <li>
+                                <a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v2.x/staging/bin/">bin</a>&nbsp|
+                                <a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v2.x/staging/bin/commands/">commands</a>&nbsp|
+                                <a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v2.x/staging/bin/libs">libs</a>&nbsp|
+                                <a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v2.x/staging/bin/utils">utils</a>
+                            </li>
+                        </ul>
                     <li><a class="linkH1" href="https://github.com/zowe/zlux">Zlux</a>
                         <ul id="zlux">
                             <script>addLi('zlux');</script>
                         </ul>
                     </li>
-                    <li><a class="linkH1" href="https://github.com/zowe/zowe-install-packaging">Zowe-Install-Packaging</a>
-                        <ul id="zowe-install-packaging">
-                            <script>addLi('zowe-install-packaging');</script>
-                            <li><a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v2.x/staging/example-zowe.yaml">Example-zowe.yaml</a></li>
-                            <li><a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v2.x/staging/bin/utils">Utils</a></li>
-                        </ul>
                     <li><a class="linkH1" href="https://github.com/zowe/zowe-common-c">Zowe-Common-C</a>
                         <ul id="zowe-common-c">
                             <script>addLi('zowe-common-c');</script>
@@ -111,7 +120,10 @@
                     <li><a class="linkH1" href="https://github.com/zowe/zlux-file-explorer">Zlux-File-Explorer</a></li>
                         <ul id="zlux-file-explorer">
                             <script>addLi('zlux-file-explorer');</script>
-                            <li><a class="linkH2" href="https://github.com/zowe/zlux-file-explorer/issues">Issues</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/zowe/zlux-file-explorer/pulls">Pulls</a></li>
+                            <li>
+                                <a class="linkH2" href="https://github.com/zowe/zlux-file-explorer/issues">Issues</a>&nbsp|&nbsp
+                                <a class="linkH2" href="https://github.com/zowe/zlux-file-explorer/pulls">Pulls</a>
+                            </li>
                         </ul>                    
                     <li><a class="linkH1" href="https://github.com/zowe/api-layer">API Layer</a></li>
                     <ul id="api-layer">
