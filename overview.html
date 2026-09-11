@@ -7,28 +7,32 @@
     <head>
         <link rel="stylesheet" href="css/style.css">
         <script>
-            function addLi(id, link){
-                if (link === '' || link === null || link === undefined){
-                    link = id;
+            const ORG = 'https://github.com/zowe/';
+
+            function repoUrl(repo) {
+                return repo.startsWith('http') ? repo : ORG + repo;
+            }
+
+            function subLinks(repo, mode) {
+                const base = repoUrl(repo);
+                if (mode === 'pulls') {
+                    return `<a class="linkH2" href="${base}/pulls">Pulls</a>`;
                 }
-                const LINK_LIST = ['issues', 'issues/Martin-Zeithaml', 'pulls', 'pulls/Martin-Zeithaml'];
-                const TXT_LIST = ['Issues', 'MZ', 'Pulls', 'MZ'];
-                const SEPARATORS = [' > ', '&nbsp|&nbsp', ' > ', ''];
-                var ul = document.getElementById(id);
-                var li = document.createElement('li');
-                for (i = 0; i < LINK_LIST.length; i ++){
-                    let a = document.createElement('a');
-                    if (link.startsWith('http')) {
-                        a.href = link + '/' + LINK_LIST[i];
-                    } else {
-                        a.href = 'https://github.com/zowe/' + link + '/' + LINK_LIST[i];
-                    }
-                    a.text = TXT_LIST[i];
-                    a.className = 'linkH2';
-                    li.appendChild(a);
-                    li.innerHTML += SEPARATORS[i];
-                }
-                ul.appendChild(li);
+                return `<a class="linkH2" href="${base}/issues">Issues</a> &gt; `
+                    + `<a class="linkH2" href="${base}/issues/Martin-Zeithaml">MZ</a>&nbsp;|&nbsp;`
+                    + `<a class="linkH2" href="${base}/pulls">Pulls</a> &gt; `
+                    + `<a class="linkH2" href="${base}/pulls/Martin-Zeithaml">MZ</a>`;
+            }
+
+            // repo entry: { name, repo, mode: 'full' (default) | 'pulls', extra: [htmlString, ...] }
+            function renderRepo({ name, repo, mode = 'full', extra = [] }) {
+                const extraItems = extra.map(html => `<li>${html}</li>`).join('');
+                return `<li><a class="linkH1" href="${repoUrl(repo)}">${name}</a>`
+                    + `<ul><li>${subLinks(repo, mode)}</li>${extraItems}</ul></li>`;
+            }
+
+            function renderRepos(containerId, repos) {
+                document.getElementById(containerId).innerHTML = repos.map(renderRepo).join('');
             }
         </script>
     </head>
@@ -38,31 +42,41 @@
             <div class="column">
                 <ul>
                     <li><a class="linkH1" href="https://www.zowe.org/">Zowe</a></li>
-                    <li><a class="linkH1" href="https://docs.zowe.org">Docs</a></li>
-                    <ul>
-                        <li><a class="linkH2" href="https://docs.zowe.org/stable/appendix/zwe_server_command_reference/zwe/">Zwe command</a></li>
-                    </ul>
-                    <li><a class="linkH1" href="https://zowe.jfrog.io/zowe/list/libs-release-local/org/zowe">JFrog</a></li>
-                    <ul>
-                        <li><a class="linkH2" href="https://zowe.jfrog.io/artifactory/list/libs-release-local/org/zowe/apiml/sdk/certificate-analyser/">Certificate Analyser</a></li>
-                        <li><a class="linkH2" href="https://zowe.jfrog.io/artifactory/libs-snapshot-local/org/zowe/">Snapshots</a></li>
-                    </ul>
+                    <li><a class="linkH1" href="https://docs.zowe.org">Docs</a>
+                        <ul>
+                            <li><a class="linkH2" href="https://docs.zowe.org/stable/appendix/zwe_server_command_reference/zwe/">Zwe command</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="linkH1" href="https://zowe.jfrog.io/zowe/list/libs-release-local/org/zowe">JFrog</a>
+                        <ul>
+                            <li><a class="linkH2" href="https://zowe.jfrog.io/artifactory/list/libs-release-local/org/zowe/apiml/sdk/certificate-analyser/">Certificate Analyser</a></li>
+                            <li><a class="linkH2" href="https://zowe.jfrog.io/artifactory/libs-snapshot-local/org/zowe/">Snapshots</a>
+                                <ul>
+                                    <li>
+                                        <a class="linkH2" href="https://zowe.jfrog.io/artifactory/libs-snapshot-local/org/zowe/configmgr/">configmgr</a>&nbsp;|&nbsp;<a class="linkH2" href="https://zowe.jfrog.io/artifactory/libs-snapshot-local/org/zowe/launcher/">launcher</a>&nbsp;|&nbsp;<a class="linkH2" href="https://zowe.jfrog.io/artifactory/libs-snapshot-local/org/zowe/zss/">zss</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul>
-                    <li><a class="linkH1" href="https://github.com/Martin-Zeithaml">Martin-Zeithaml</a></li>
-                    <ul>
-                        <li><a class="linkH2" href="https://github.com/Martin-Zeithaml/TSTerm">TSTerm</a></li>
-                        <li><a class="linkH2" href="https://github.com/Martin-Zeithaml/quickJS-tests">Quick JS Tests</a></li>
-                    </ul>
+                    <li><a class="linkH1" href="https://github.com/Martin-Zeithaml">Martin-Zeithaml</a>
+                        <ul>
+                            <li><a class="linkH2" href="https://github.com/Martin-Zeithaml/TSTerm">TSTerm</a></li>
+                            <li><a class="linkH2" href="https://github.com/Martin-Zeithaml/quickJS-tests">Quick JS Tests</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul>
-                    <li><a class="linkH1" href="https://github.com/TSTerminal/TSTerm">Tsterm</a></li>
-                    <ul>
-                        <li><a class="linkH2" href="https://github.com/TSTerminal/TSTerm/issues">Issues</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/TSTerminal/TSTerm/pulls">Pulls</a></li>
-                    </ul>
+                    <li><a class="linkH1" href="https://github.com/TSTerminal/TSTerm">Tsterm</a>
+                        <ul>
+                            <li><a class="linkH2" href="https://github.com/TSTerminal/TSTerm/issues">Issues</a>&nbsp;|&nbsp;<a class="linkH2" href="https://github.com/TSTerminal/TSTerm/pulls">Pulls</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul>
-                    <li><a class="linkH1" href="https://regex101.com/">Regex101</a>&nbsp|&nbsp<a class="linkH1" href="https://devina.io/redos-checker">ReDoS Checker</a></li>
+                    <li><a class="linkH1" href="https://regex101.com/">Regex101</a>&nbsp;|&nbsp;<a class="linkH1" href="https://devina.io/redos-checker">ReDoS Checker</a></li>
                     <li><a class="linkH1" href="https://www.markdownguide.org/cheat-sheet/">MD Cheats</a></li>
                     <li><a class="linkH1" href="https://www.rapidtables.com/convert/number/ascii-to-hex.html">ASCII to Hex</a></li>
                     <li><a class="linkH1" href="https://www.treedoc.org">Tree doc</a></li>
@@ -70,95 +84,47 @@
             </div>
             <div class="column">
                 <ul>
-                    <li>
-                        <li><a class="linkH1" href="https://github.com/zowe/">Zowe</a></li>
+                    <li><a class="linkH1" href="https://github.com/zowe/">Zowe</a>
                         <ul>
-                            <li><a class="linkH2" href="https://github.com/zowe/community">Community</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/zowe/community/tree/master/Project%20Management/PI%20Planning">PI Planning</a></li>
-                            <li><a class="linkH2" href="https://github.com/orgs/zowe/projects/">Projects</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/orgs/zowe/projects/28">z/OS</a>&nbsp|&nbsp<a class="linkH2" href="https://github.com/orgs/zowe/projects/18">webUI</a></ul</li>
+                            <li><a class="linkH2" href="https://github.com/zowe/community">Community</a>&nbsp;|&nbsp;<a class="linkH2" href="https://github.com/zowe/community/tree/master/Project%20Management/PI%20Planning">PI Planning</a></li>
+                            <li><a class="linkH2" href="https://github.com/orgs/zowe/projects/">Projects</a>&nbsp;|&nbsp;<a class="linkH2" href="https://github.com/orgs/zowe/projects/28">z/OS</a>&nbsp;|&nbsp;<a class="linkH2" href="https://github.com/orgs/zowe/projects/18">webUI</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <li><a class="linkH1" href="https://github.com/zowe/docs-site">Docs site</a></li>
-                        <ul id="docs_site">
-                            <script>addLi('docs_site', 'docs-site')</script>
-                        </ul>
-                    </li>
-                    <li><a class="linkH1" href="https://github.com/zowe/zowe-install-packaging">Zowe-Install-Packaging</a>
-                        <ul id="zowe-install-packaging">
-                            <script>addLi('zowe-install-packaging');</script>
-                            <li>
-                                <a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/tree/v3.x/staging/schemas">Schemas</a>&nbsp|
-                                <a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v3.x/staging/example-zowe.yaml">Example-zowe.yaml</a>
-                            </li>
-                            <li>
-                                <a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v3.x/staging/bin/">bin</a>&nbsp|
-                                <a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v3.x/staging/bin/commands/">commands</a>&nbsp|
-                                <a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v3.x/staging/bin/libs">libs</a>&nbsp|
-                                <a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v3.x/staging/bin/utils">utils</a>
-                            </li>
-                        </ul>
-                    <li><a class="linkH1" href="https://github.com/zowe/zlux">Zlux</a>
-                        <ul id="zlux">
-                            <script>addLi('zlux');</script>
-                        </ul>
-                    </li>
-                    <li><a class="linkH1" href="https://github.com/zowe/zowe-common-c">Zowe-Common-C</a>
-                        <ul id="zowe-common-c">
-                            <script>addLi('zowe-common-c');</script>
-                        </ul>
-                    <li><a class="linkH1" href="https://github.com/zowe/launcher">Launcher</a>
-                        <ul id="launcher">
-                            <script>addLi('launcher');</script>
-                        </ul>
-                    <li><a class="linkH1" href="https://github.com/zowe/zss">ZSS</a></li>
-                        <ul id="zss">
-                            <script>addLi('zss');</script>
-                        </ul>
-                    <li><a class="linkH1" href="https://github.com/zowe/zlux-editor">Zlux-Editor</a></li>
-                        <ul id="zlux_editor">
-                            <script>addLi('zlux_editor', 'zlux_editor');</script>
-                        </ul>
-                    <li><a class="linkH1" href="https://github.com/zowe/zlux-file-explorer">Zlux-File-Explorer</a></li>
-                        <ul id="zlux-file-explorer">
-                            <script>addLi('zlux-file-explorer');</script>
-                            <li>
-                                <a class="linkH2" href="https://github.com/zowe/zlux-file-explorer/issues">Issues</a>&nbsp|&nbsp
-                                <a class="linkH2" href="https://github.com/zowe/zlux-file-explorer/pulls">Pulls</a>
-                            </li>
-                        </ul>                    
-                    <li><a class="linkH1" href="https://github.com/zowe/api-layer">API Layer</a></li>
-                    <ul id="api-layer">
-                        <script>addLi('api-layer');</script>
-                        <li><a class="linkH2" href="https://github.com/zowe/api-layer/tree/v3.x.x/certificate-analyser">Certificate Analyser</a></li>
-                    </ul>
                 </ul>
+                <ul id="repos-col2"></ul>
+                <script>
+                    renderRepos('repos-col2', [
+                        { name: 'Docs site', repo: 'docs-site' },
+                        { name: 'Zowe-Install-Packaging', repo: 'zowe-install-packaging', extra: [
+                            '<a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/tree/v3.x/staging/schemas">Schemas</a>&nbsp;|&nbsp;<a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v3.x/staging/example-zowe.yaml">Example-zowe.yaml</a>',
+                            '<a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v3.x/staging/bin/">bin</a>&nbsp;|&nbsp;<a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v3.x/staging/bin/commands/">commands</a>&nbsp;|&nbsp;<a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v3.x/staging/bin/libs">libs</a>&nbsp;|&nbsp;<a class="linkH2" href="https://github.com/zowe/zowe-install-packaging/blob/v3.x/staging/bin/utils">utils</a>',
+                        ]},
+                        { name: 'Zlux', repo: 'zlux' },
+                        { name: 'Zlux-app-server', repo: 'zlux-app-server' },
+                        { name: 'Zlux-server-framework', repo: 'zlux-server-framework' },
+                        { name: 'Zowe-Common-C', repo: 'zowe-common-c' },
+                        { name: 'Launcher', repo: 'launcher' },
+                        { name: 'ZSS', repo: 'zss' },
+                        { name: 'Zlux-Editor', repo: 'zlux-editor' },
+                        { name: 'Zlux-File-Explorer', repo: 'zlux-file-explorer' },
+                        { name: 'API Layer', repo: 'api-layer', extra: [
+                            '<a class="linkH2" href="https://github.com/zowe/api-layer/tree/v3.x.x/certificate-analyser">Certificate Analyser</a>',
+                        ]},
+                    ]);
+                </script>
             </div>
             <div class="column">
-                <ul>
-                    <li><a class="linkH1" href="https://github.com/zowe/explorer-ip">Explorer-Ip</a></li>
-                        <ul id="explorer-ip">
-                            <script>addLi('explorer-ip');</script>
-                        </ul>
-                    <li><a class="linkH1" href="https://github.com/zowe/tn3270-ng2">Tn3270-Ng2</a></li>
-                        <ul>
-                            <li><a class="linkH2" href="https://github.com/zowe/tn3270-ng2/pulls">Pulls</a></li>
-                        </ul>
-                    <li><a class="linkH1" href="https://github.com/zowe/explorer-jes">Explorer-Jes</a></li>
-                        <ul>
-                            <li><a class="linkH2" href="https://github.com/zowe/explorer-jes/pulls">Pulls</a></li>
-                        </ul>
-                    <li><a class="linkH1" href="https://github.com/zowe/explorer-mvs">Explorer-Mvs</a></li>
-                        <ul>
-                            <li><a class="linkH2" href="https://github.com/zowe/explorer-mvs/pulls">Pulls</a></li>
-                        </ul>
-                    <li><a class="linkH1" href="https://github.com/zowe/explorer-uss">Explorer-Uss</a></li>
-                        <ul>
-                            <li><a class="linkH2" href="https://github.com/zowe/explorer-uss/pulls">Pulls</a></li>
-                        </ul>
-                </ul>
+                <ul id="repos-col3"></ul>
+                <script>
+                    renderRepos('repos-col3', [
+                        { name: 'Explorer-Ip', repo: 'explorer-ip' },
+                        { name: 'Tn3270-Ng2', repo: 'tn3270-ng2', mode: 'pulls' },
+                        { name: 'Explorer-Jes', repo: 'explorer-jes', mode: 'pulls' },
+                        { name: 'Explorer-Mvs', repo: 'explorer-mvs', mode: 'pulls' },
+                        { name: 'Explorer-Uss', repo: 'explorer-uss', mode: 'pulls' },
+                    ]);
+                </script>
             </div>
         </div>
-
     </body>
-
 </html>
